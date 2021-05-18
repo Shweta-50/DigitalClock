@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Digital Clock in JavaScipt</title>
+	<link rel="stylesheet" href="">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html{
+  font-family: 'Orbitron', sans-serif;
+  font-size: 30px;
+  cursor: pointer;
+}
+h2{color:cyan;margin-bottom: 20px;text-shadow: 0px 0px 5px black;}
+section{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(2, 15, 32);
+  flex-direction: column;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)),url('https://image.freepik.com/free-vector/geometric-hi-tech-background_29971-442.jpg') ;
+  background-size: cover;
+  background-position: 100%;
+  background-repeat: no-repeat;
+  text-shadow: 0px 0px 5px black;
+}
+section .clock {
+  border-radius: 8px;
+  color: cyan;
+  border: 4px dashed cyan;
+  padding: 20px;
+  text-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 20px black;
+}
+
+.format{
+  color: aquamarine;
+  font-size: 20px;
+  margin: 30px 0;
+  text-shadow: 0px 0px 5px black;
+}
+.format button{
+  display: inline-block;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  font-family: 'Orbitron';
+  border-radius: 50px;
+  cursor: pointer;
+  margin: 10px;
+  text-shadow: 0px 0px 5px black;
+  border: 2px solid cyan;color:cyan;background-color: transparent;
+  box-shadow: 0px 0px 5px black;
+  
+}
+ button:hover{background-color: cyan;color:#000;}
+	</style>
+</head>
+<body>
+
+	  <section><br><br><br>
+	  	<h2>Digital Clock in JavaScript</h2>
+    <div class="clock" data-format='12'>
+      <h1>00 : 00 : 00 AM</h1>
+    </div>
+    <div class="format">
+      <h1>Format</h1><br>
+      <button data-format='12'>12hours</button>
+      <button data-format='24'>24hours</button>
+    </div>
+  </section>
+ 
+	 <script>
+	 	const clockEl = document.querySelector('.clock');
+	 	const buttons = document.querySelectorAll('.format button');
+	 	const intervalID = setInterval( generateTime, 1000);
+
+
+	 	function generateTime(){
+	 		const format = clockEl.getAttribute('data-format');
+	 		 const date = new Date();
+	 		 let hour = date.getHours();
+	 		 let timeStatus = '';
+	 		 const min = date.getMinutes();
+	 		 const sec = date.getSeconds();
+	 		  if (format === '12') {
+			    timeStatus = (hour >= 12) ? 'PM' : 'AM';
+			    hour = (hour > 12) ? hour % 12 : hour;
+			  }
+
+			  clockEl.innerHTML = `<h1>${hour} : ${min} : ${sec} ${timeStatus}</h1>`
+	 	}
+	 	buttons.forEach((button)=>{
+	 		 button.addEventListener('click', ()=>{
+	 		 const format = button.getAttribute('data-format');
+	 		 clockEl.setAttribute('data-format', format);
+	 		 generateTime();
+ })
+})
+
+	 </script>
+</body>
+</html>
